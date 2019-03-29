@@ -1,0 +1,56 @@
+#this is copied from build-with-python utube channel
+from tkinter import *
+
+from pygame import mixer
+mixer.init()
+
+#declaration of the tkinter object as root
+root=Tk()
+#specifying the windows elements, like size as geometry, name as title, icon as iconbitmap
+root.geometry('300x400')
+root.title("bhuplayer")
+root.iconbitmap(r'C:\Users\hp\Downloads\vinyl_YO6_icon.ico')
+
+
+#creating a menubar
+
+menubar=Menu(root)
+root.config(menu=menubar)
+
+subMenu=Menu(menubar,tearoff=0) #tearoff takes off the scratched line which appears , also the submenu definition
+menubar.add_cascade(label="file",menu=subMenu) #to create a submenu which is cascade or drop down style, use add_cascade)
+subMenu.add_command(label="New Notebook")#in a drop down, to add the options use add_commands
+subMenu.add_command(label="open...")
+subMenu.add_command(label="save and checkpoint")
+
+#specifying widgets inside the GUI window.
+
+text=Label(root, text ="let's make some noise")
+text.pack() #you need to pack everything to make it work
+
+photo=PhotoImage(file='C:/Users/hp/Desktop/lol/playpic.PNG')
+#photolabel=Label(root,image= photo)
+#photolabel.pack()
+
+#adding a button 
+def play_button():
+    mixer.music.load("C:/Users/hp/Desktop/songs/Ei Meghla Dine Ekla-Anupam Roy.mp3")
+    mixer.music.play()
+    #print("okay! this works")
+def stop_button():
+    mixer.music.stop()
+def set_vol(val):
+    mixer.music.set_volume(int(val)/100)
+button_photo=PhotoImage(file='C:/Users/hp/Downloads/my-icons-collection/png/002-play-button.png')   
+playBtn=Button(root,image=button_photo,command=play_button)
+stopBtn=Button(root,text="stopIt",command=stop_button)
+playBtn.pack()
+stopBtn.pack()
+
+#scale implementation
+scale=Scale(root,from_=0,to=100,orient=HORIZONTAL,command_=set_vol)
+scale.set(45)
+scale.pack()
+
+#running the object should be at the end of all specification otherwise will throw an error
+root.mainloop()
